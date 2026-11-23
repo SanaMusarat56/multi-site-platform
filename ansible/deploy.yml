@@ -1,0 +1,23 @@
+- name: Deploy Multi Site Platform
+  hosts: local
+  become: true
+  gather_facts: false
+
+  tasks:
+    - name: Deploy Site A
+      ansible.builtin.command:
+        argv:
+          - /usr/local/bin/k3s
+          - kubectl
+          - apply
+          - -f
+          - "{{ playbook_dir }}/../kubernetes/site-a.yaml"
+
+    - name: Deploy Site B
+      ansible.builtin.command:
+        argv:
+          - /usr/local/bin/k3s
+          - kubectl
+          - apply
+          - -f
+          - "{{ playbook_dir }}/../kubernetes/site-b.yaml"
